@@ -1,0 +1,26 @@
+/!\ Delta-E /!\
+
+
+rgb(161 46 101) --> Couleur à deviner
+rgb(130 90 96)  --> Couleur supposée
+
+
+
+1) On récupère la différence absolue entre les valeurs rouges, verts, bleus des deux couleurs 
+
+|161 - 130|  =   31
+|46  -  90|  =   44
+|101 -  96|  =   5
+
+
+
+2) On effectue une moyenne de cette différence (plus la moyenne est faible plus la supposition est correcte)
+
+(31 + 44 + 5) / 3 = 80 / 3 = 26.6
+
+
+
+3) On calcul alors un pourcentage que l'on inverse
+
+255 - 26.6 = 228.4
+100 * (228.4 / 255) = 89,5%
