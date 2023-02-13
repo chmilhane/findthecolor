@@ -79,11 +79,11 @@ export const gameSlice = createSlice({
       }
 
       if (percentage >= 50 && state.difficulty === 1) {
-        state.score += points;
+        state.score += points * 1.5;
       }
 
       if (percentage >= 70 && state.difficulty === 2) {
-        state.score += points;
+        state.score += points * 2;
       }
     }
   }
