@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import Index from "./views/Index";
+import Difficulty from "./views/Difficulty";
+import Game from "./views/Game";
 
-function App() {
+import { useSelector } from "react-redux";
+
+export default function App() {
+  const menu = useSelector(state => state.menu.value);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App flex items-center justify-center">
+      { menu === 0 ? <Index /> :
+        menu === 1 ? <Difficulty /> : 
+        menu === 2 ? <Game />
+        : null }
     </div>
-  );
+  )
 }
-
-export default App;
