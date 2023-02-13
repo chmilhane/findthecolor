@@ -72,16 +72,18 @@ export const gameSlice = createSlice({
       const percentage = 100 - (diff / 255) * 100;
       state.percentage = Math.min(Math.max(percentage, 0), 100);
 
+      const points = 255 - diff;
+
       if (percentage >= 30 && state.difficulty === 0) {
-        state.score += diff;
+        state.score += points;
       }
 
       if (percentage >= 50 && state.difficulty === 1) {
-        state.score += diff;
+        state.score += points;
       }
 
       if (percentage >= 70 && state.difficulty === 2) {
-        state.score += diff;
+        state.score += points;
       }
     }
   }
