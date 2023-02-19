@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
+import useWindowDimensions from "../hooks/useWindowDimensions";
+
 import { setMenu } from "../features/menuSlice";
 import { reset, nextDifficulty, submitGuess, setHasSubmitted, setRandomColor } from "../features/gameSlice";
 
@@ -27,7 +29,7 @@ function GuessInterface() {
     const g = parseInt(refG.current.value || 0);
     const b = parseInt(refB.current.value || 0);
 
-    console.log(r, g, b);
+    // console.log(r, g, b);
 
     if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
       alert("Please enter a valid RGB value.");
@@ -38,7 +40,7 @@ function GuessInterface() {
   }
 
   return (
-    <div className="flex flex-col w-96 h-max p-8 bg-transparent-30 rounded-lg shadow-xl">
+    <div className="flex flex-col w-full mx-4 sm:mx-0 sm:w-96 h-max p-6 sm:p-8 bg-transparent-30 rounded-lg shadow-xl">
       <h1 className="font-bold text-2xl mb-2">Find The Color!</h1>
       <div className="flex space-x-3">
         <div className="relative h-11 w-full">
@@ -115,7 +117,7 @@ function ColorRevealInterface() {
   }
 
   return (
-    <div className="flex flex-col w-96 h-max p-8 bg-transparent-30 rounded-lg shadow-xl">
+    <div className="flex flex-col w-full mx-4 sm:mx-0 sm:w-96 h-max p-6 sm:p-8 bg-transparent-30 rounded-lg shadow-xl">
       <h1 className="font-regular text-2xl">You were <span className="font-bold">{Math.round(game.percentage)}%</span> right!</h1>
       <div className="flex justify-between items-center mt-6">
         <div className="flex flex-col space-y-2">
@@ -156,6 +158,8 @@ function ColorRevealInterface() {
 
 function Game() {
   const dispatch = useDispatch();
+  const { width } = useWindowDimensions();
+
   const game = useSelector(state => state.game);
 
   const quit = () => {
@@ -174,17 +178,26 @@ function Game() {
         )`,
     }} className="flex items-center justify-center w-screen h-screen">
       <div className="absolute top-4 left-0 flex items-center justify-between w-full h-16 p-4">
-        <h1 className="font-bold text-2xl text-white shadow-md px-6 p-2 bg-transparent-30 rounded-md ">Score : {game.score}</h1>
-        <div className="flex space-x-4">
-          <button onClick={() => dispatch(nextDifficulty())} className="bg-white shadow-md space-x-4 rounded-md px-6 py-2 text-black flex items-center justify-center">
-            <h1 className="font-bold text-2xl">{ DIFFICULTY_MAP[game.difficulty] }</h1>
+        <h1 className="font-bold text-2xl text-white shadow-md px-4 sm:px-6 p-2 bg-transparent-30 rounded-md ">Score : {game.score}</h1>
+        { width > 640 ? (
+          <div className="flex space-x-4">
+            <button onClick={() => dispatch(nextDifficulty())} className="bg-white shadow-md space-x-4 rounded-md px-6 py-2 text-black flex items-center justify-center">
+              <h1 className="font-bold text-2xl">{ DIFFICULTY_MAP[game.difficulty] }</h1>
+              <div className={"p-3 shadow-md border-2 rounded-full " + (game.difficulty === 0 ? "bg-green" : game.difficulty === 1 ? "bg-yellow" : "bg-red")}></div>
+            </button>
+            <button onClick={() => quit()} className="bg-white shadow-md space-x-4 rounded-md px-6 py-2 text-black flex items-center justify-center">
+              <h1 className="font-bold text-2xl">QUIT</h1>
+              <img src={Arrow} alt="Arrow" className="transition h-5" />
+            </button>
+          </div>
+        ) : (
+          <button onClick={() => dispatch(nextDifficulty())} className="bg-white shadow-md space-x-4 rounded-md px-4 sm:px-6 py-2 text-black flex items-center justify-center">
+            { width > 350 && (
+              <h1 className="font-bold text-2xl">{ DIFFICULTY_MAP[game.difficulty] }</h1>
+            ) }
             <div className={"p-3 shadow-md border-2 rounded-full " + (game.difficulty === 0 ? "bg-green" : game.difficulty === 1 ? "bg-yellow" : "bg-red")}></div>
-          </button>
-          <button onClick={() => quit()} className="bg-white shadow-md space-x-4 rounded-md px-6 py-2 text-black flex items-center justify-center">
-            <h1 className="font-bold text-2xl">QUIT</h1>
-            <img src={Arrow} alt="Arrow" className="transition h-5" />
-          </button>
-        </div>
+        </button>
+        ) }
       </div>
       { game.hasSubmitted ? <ColorRevealInterface /> : <GuessInterface /> }
     </div>
