@@ -8,7 +8,7 @@ export default function App() {
   const menu = useSelector(state => state.menu.value);
 
   return (
-    <div className="App flex items-center justify-center">
+    <div className="flex items-center justify-center">
       { menu === 0 ? <Index /> :
         menu === 1 ? <Difficulty /> : 
         menu === 2 ? <Game />

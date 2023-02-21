@@ -6,8 +6,11 @@ import useWindowDimensions from "../hooks/useWindowDimensions";
 import { setMenu } from "../features/menuSlice";
 import { reset, nextDifficulty, submitGuess, setHasSubmitted, setRandomColor } from "../features/gameSlice";
 
-import Arrow from "../assets/RightArrow.svg";
-import EmptyArrow from "../assets/EmptyArrow.svg";
+import Arrow from "../assets/svgs/RightArrow.svg";
+import EmptyArrow from "../assets/svgs/EmptyArrow.svg";
+
+import Lottie from 'react-lottie-player';
+import ConfettiJson from '../assets/animations/confetti.json';
 
 const DIFFICULTY_MAP = {
   0: "EASY",
@@ -29,8 +32,6 @@ function GuessInterface() {
     const g = parseInt(refG.current.value || 0);
     const b = parseInt(refB.current.value || 0);
 
-    // console.log(r, g, b);
-
     if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
       alert("Please enter a valid RGB value.");
       return;
@@ -45,15 +46,15 @@ function GuessInterface() {
       <div className="flex space-x-3">
         <div className="relative h-11 w-full">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none bg-red shadow-sm rounded-l-lg"></div>
-          <input ref={refR} type="number" max={255} min={0} defaultValue={0} className="bg-transparent-white border-0 w-full h-11 text-white text-xl outline-none font-normal rounded-lg pl-5 p-4" />
+          <input ref={refR} type="number" pattern="\d*" max={255} min={0} placeholder={0} className="bg-transparent-white border-0 w-full h-11 text-white placeholder:text-gray text-xl outline-none font-normal rounded-lg pl-5 p-4" />
           <div className="absolute inset-y-0 right-2 flex justify-center items-center">
-            <div className="flex flex-col space-y-1">
-              <button onClick={() => {
+            <div className="flex flex-col space-y-1 pointer-events-none">
+              <button tabIndex={-1} onClick={() => {
                 refR.current.value = Math.max(0, Math.min(255, parseInt(refR.current.value || 0) + 1));
               }} type="button" className="px-1">
                 <img src={EmptyArrow} alt="Arrow" className="h-4 -rotate-90" />
               </button>
-              <button onClick={() => {
+              <button tabIndex={-1} onClick={() => {
                 refR.current.value = Math.max(0, Math.min(255, parseInt(refR.current.value || 0) - 1));
               }} type="button" className="px-1">
                 <img src={EmptyArrow} alt="Arrow" className="h-4 rotate-90" />
@@ -63,15 +64,15 @@ function GuessInterface() {
         </div>
         <div className="relative h-11 w-full">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none bg-green shadow-sm rounded-l-lg"></div>
-          <input ref={refG} type="number" max={255} min={0} defaultValue={0} className="bg-transparent-white border-0 w-full h-11 text-white text-xl outline-none font-normal rounded-lg pl-5 p-4" />
+          <input ref={refG} type="number" pattern="\d*" max={255} min={0} placeholder={0} className="bg-transparent-white border-0 w-full h-11 text-white placeholder:text-gray text-xl outline-none font-normal rounded-lg pl-5 p-4" />
           <div className="absolute inset-y-0 right-2 flex justify-center items-center">
             <div className="flex flex-col space-y-1">
-              <button onClick={() => {
+              <button tabIndex={-1} onClick={() => {
                 refG.current.value = Math.max(0, Math.min(255, parseInt(refG.current.value || 0) + 1));
               }} type="button" className="px-1">
                 <img src={EmptyArrow} alt="Arrow" className="h-4 -rotate-90" />
               </button>
-              <button onClick={() => {
+              <button tabIndex={-1} onClick={() => {
                 refG.current.value = Math.max(0, Math.min(255, parseInt(refG.current.value || 0) - 1));
               }} type="button" className="px-1">
                 <img src={EmptyArrow} alt="Arrow" className="h-4 rotate-90" />
@@ -81,15 +82,15 @@ function GuessInterface() {
         </div>
         <div className="relative h-11 w-full">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none bg-blue shadow-sm rounded-l-lg"></div>
-          <input ref={refB} type="number" max={255} min={0} defaultValue={0} className="bg-transparent-white border-0 w-full h-11 text-white text-xl outline-none font-normal rounded-lg pl-5 p-4" />
+          <input ref={refB} type="number" pattern="\d*" max={255} min={0} placeholder={0} className="bg-transparent-white border-0 w-full h-11 text-white placeholder:text-gray text-xl outline-none font-normal rounded-lg pl-5 p-4" />
           <div className="absolute inset-y-0 right-2 flex justify-center items-center">
             <div className="flex flex-col space-y-1">
-              <button onClick={() => {
+              <button tabIndex={-1} onClick={() => {
                 refB.current.value = Math.max(0, Math.min(255, parseInt(refB.current.value || 0) + 1));
               }} type="button" className="px-1">
                 <img src={EmptyArrow} alt="Arrow" className="h-4 -rotate-90" />
               </button>
-              <button onClick={() => {
+              <button tabIndex={-1} onClick={() => {
                 refB.current.value = Math.max(0, Math.min(255, parseInt(refB.current.value || 0) - 1));
               }} type="button" className="px-1">
                 <img src={EmptyArrow} alt="Arrow" className="h-4 rotate-90" />
@@ -151,6 +152,14 @@ function ColorRevealInterface() {
       </div>
       <button onClick={handleClick} type="submit" className="bg-white shadow-md rounded-md py-2 text-black flex mt-8 items-center justify-center">
         <h1 className="font-bold text-2xl">NEXT</h1>
+        <div className="absolute pointer-events-none">
+          <Lottie
+            animationData={ConfettiJson}
+            loop={0}
+            play={game.shouldPlayConfetti}
+            style={{ width: 250, height: 250 }}
+          />
+        </div>
       </button>
     </div>
   );

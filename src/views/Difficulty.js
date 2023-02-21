@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { setMenu } from "../features/menuSlice";
 import { setDifficulty, setRandomColor } from "../features/gameSlice";
 
-import Arrow from "../assets/RightArrow.svg";
+import Arrow from "../assets/svgs/RightArrow.svg";
 
 function ButtonContent(props) {
   return (

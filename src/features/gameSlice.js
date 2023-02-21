@@ -16,7 +16,8 @@ export const gameSlice = createSlice({
       b: 0
     },
     hasSubmitted: false,
-    percentage: 0
+    percentage: 0,
+    shouldPlayConfetti: false
   },
   reducers: {
     setHasSubmitted: (state, action) => {
@@ -37,6 +38,8 @@ export const gameSlice = createSlice({
 
       state.hasSubmitted = false;
       state.percentage = 0;
+
+      state.shouldPlayConfetti = false;
     },
 
     setDifficulty: (state, action) => {
@@ -52,9 +55,13 @@ export const gameSlice = createSlice({
     },
 
     setRandomColor: (state) => {
+      state.shouldPlayConfetti = false;
+
       state.currentColor.r = Math.floor(Math.random() * 256);
       state.currentColor.g = Math.floor(Math.random() * 256);
       state.currentColor.b = Math.floor(Math.random() * 256);
+
+      console.log(`%c${state.currentColor.r}, ${state.currentColor.g}, ${state.currentColor.b}`, `color: rgb(${state.currentColor.r}, ${state.currentColor.g}, ${state.currentColor.b})`);
     },
 
     submitGuess(state, action) {
@@ -76,14 +83,17 @@ export const gameSlice = createSlice({
 
       if (percentage >= 30 && state.difficulty === 0) {
         state.score += points;
+        state.shouldPlayConfetti = true;
       }
 
       if (percentage >= 50 && state.difficulty === 1) {
-        state.score += points * 1.5;
+        state.score += Math.floor(points * 1.5);
+        state.shouldPlayConfetti = true;
       }
 
       if (percentage >= 70 && state.difficulty === 2) {
-        state.score += points * 2;
+        state.score += Math.floor(points * 2);
+        state.shouldPlayConfetti = true;
       }
     }
   }
