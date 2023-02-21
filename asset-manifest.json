@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/findthecolor/static/css/main.21c6ec46.css",
-    "main.js": "/findthecolor/static/js/main.ddb64233.js",
+    "main.css": "/findthecolor/static/css/main.af3c2803.css",
+    "main.js": "/findthecolor/static/js/main.ef52ea3d.js",
     "static/media/EmptyArrow.svg": "/findthecolor/static/media/EmptyArrow.cc93e586f0cfa7d1f9a93a758148aa07.svg",
     "index.html": "/findthecolor/index.html",
     "static/media/RightArrow.svg": "/findthecolor/static/media/RightArrow.f14ff8a8781997d89cc7220bf3a81358.svg",
-    "main.21c6ec46.css.map": "/findthecolor/static/css/main.21c6ec46.css.map",
-    "main.ddb64233.js.map": "/findthecolor/static/js/main.ddb64233.js.map"
+    "main.af3c2803.css.map": "/findthecolor/static/css/main.af3c2803.css.map",
+    "main.ef52ea3d.js.map": "/findthecolor/static/js/main.ef52ea3d.js.map"
   },
   "entrypoints": [
-    "static/css/main.21c6ec46.css",
-    "static/js/main.ddb64233.js"
+    "static/css/main.af3c2803.css",
+    "static/js/main.ef52ea3d.js"
   ]
 }
