@@ -38,6 +38,8 @@ function GuessInterface() {
     }
 
     dispatch(submitGuess({r, g, b}));
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   return (

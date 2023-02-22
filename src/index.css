@@ -8,29 +8,17 @@ body {
 	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 	background-size: 400% 400%;
 	animation: Gradient 15s ease infinite;
-	min-height: 100vh;
-	min-height: stretch;
-	min-height: -webkit-fill-available;
-	overflow: hidden;
+	overflow-y: hidden;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	overflow-anchor: auto;
 }
 
 body {
   color: white;
   font-family: 'Poppins', sans-serif;
-}
-
-html, body {
-	height: stretch;
-	height: -webkit-fill-available;
-}
-
-#stretch {
-	height: stretch;
-	height: -webkit-fill-available;
-	min-height: 100vh;
+	overflow-anchor: auto;
 }
 
 @keyframes Gradient {
