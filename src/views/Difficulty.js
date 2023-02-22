@@ -40,7 +40,7 @@ function Difficulty() {
           <ButtonContent text="HARD" percent="70" />
         </button>
       </div>
-      <p className="mt-6 text-gray">The percentage indicates the level of accuracy you need to achieve to earn points.</p>
+      <p className="mt-6 text-gray">The percentage indicates the level of accuracy you need to achieve to earn points. You can still change it later.</p>
     </div>
   );
 }
